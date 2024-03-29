@@ -8,9 +8,7 @@ https://www.playgwent.com/en/join
 
 ## Odkazy pro vývoj
 
-Zde budou živé linky na:
-- figma návrh stránek aplikace
-- odkaz do repozitáře projektu, pokud pracuji v teamu a zde vývoj neprobíhá
+[Odkaz na Figmu](https://www.figma.com/file/oPEZtZDGTHvjsQjZs6EM9u/Untitled?type=design&node-id=0-1&mode=design&t=cAoFRAVAZoIcedsY-0)
 
 ### Z čeho čerpat
 
