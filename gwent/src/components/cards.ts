@@ -23,6 +23,27 @@ export const cards: Card[] = [
       class: 'Ranged',
       image: '../assets/yen.png'
     },
+    {
+      id: 4,
+        name: 'Triss Merigold',
+        power: 7,
+        class: 'Melee',
+        image: '../assets/triss.png'  
+    },
+    {
+        id: 5,
+        name: 'Vesemir',
+        power: 6,
+        class: 'Melee',
+        image: '../assets/vesemir.png'
+    }
     //etc.
   ];
   
+  export const player1Deck: Card[] = [
+
+  ];
+  
+  export const player2Deck: Card[] = [
+
+  ];
