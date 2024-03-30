@@ -1,4 +1,5 @@
 export interface Card {
+    id: number;
     name: string;
     power: number;
     class: 'Melee' | 'Ranged' | 'Siege';
