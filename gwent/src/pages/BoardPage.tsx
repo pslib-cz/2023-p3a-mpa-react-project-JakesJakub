@@ -69,6 +69,8 @@ const BoardPage: React.FC = () => {
       }
     }
 
+    
+
     return drawnCards;
   };
 
