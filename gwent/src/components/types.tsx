@@ -13,6 +13,7 @@ export interface Field {
 }
 
 export interface Player {
+  currentPlayer: any;
   hand: Card[];
   deck: Card[];
   fields: Field[];
