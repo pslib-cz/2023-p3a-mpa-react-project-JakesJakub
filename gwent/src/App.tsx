@@ -1,7 +1,7 @@
-import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
 import MenuPage from './pages/MenuPage';
 import BoardPage from './pages/BoardPage';
+
 
 function App() {
 

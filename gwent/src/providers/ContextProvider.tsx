@@ -1,6 +1,5 @@
-// GameContext.tsx
 import React, { PropsWithChildren, createContext, useContext, useReducer } from 'react';
-import { Game, Player, Card } from '../components/types';
+import { Game, Card } from '../components/types';
 
 
 type Action =
@@ -10,31 +9,26 @@ type Action =
 
 const reducer = (state: Game, action: Action): Game => {
     switch (action.type) {
-      case 'DRAW_CARD':
-
-        if (state.players[action.playerIndex].hand.length === 0) {
-          const newPlayers = [...state.players];
-          const currentPlayer = newPlayers[action.playerIndex];
-          const newDeck = [...currentPlayer.deck];
-          const newHand = [...currentPlayer.hand];
-  
-          for (let i = 0; i < 3; i++) {
-            if (newDeck.length > 0) {
-              const drawnCard = newDeck.pop()!;
-              newHand.push(drawnCard);
+        case 'DRAW_CARD':
+            const newPlayers = [...state.players];
+            const currentPlayer = newPlayers[action.playerIndex];
+            const newDeck = [...currentPlayer.deck];
+            const newHand = [...currentPlayer.hand];
+          
+            for (let i = 0; i < 10; i++) {
+              if (newDeck.length > 0) {
+                const drawnCard = newDeck.pop()!;
+                newHand.push(drawnCard);
+              }
             }
-          }
-  
-          currentPlayer.deck = newDeck;
-          currentPlayer.hand = newHand;
-  
-          return {
-            ...state,
-            players: newPlayers,
-          };
-        }
-
-        return state;
+          
+            currentPlayer.deck = newDeck;
+            currentPlayer.hand = newHand;
+          
+            return {
+              ...state,
+              players: newPlayers,
+            };
   
       case 'PLACE_CARD':
 

@@ -1,8 +1,10 @@
+//BoardPage.tsx
 import React, { useState, useEffect } from 'react';
-import { Game, Card, Player, Field } from '../components/types';
+import { Game, Card, Player} from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/Board-bg.png';
+
 
 const initialGame: Game = {
   players: [
@@ -59,6 +61,7 @@ const BoardPage: React.FC = () => {
   const drawInitialCards = (player: Player): Card[] => {
     const drawnCards: Card[] = [];
     const newDeck = [...player.deck];
+
 
     for (let i = 0; i < 10; i++) {
       if (newDeck.length > 0) {
