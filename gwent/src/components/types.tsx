@@ -21,6 +21,7 @@ export interface Card {
   image: string;
 }
 
+
 export interface WeatherCard extends Card {
   type: 'Weather';
   effect: WeatherEffect;

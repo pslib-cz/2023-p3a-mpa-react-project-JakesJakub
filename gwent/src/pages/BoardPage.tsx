@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Game, Card, Player, CardClass, WeatherEffect } from '../components/types';
+import { Game, Card, Player, CardClass } from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/Board-bg.png';
@@ -34,34 +34,20 @@ const initialGame: Game = {
 
 const BoardPage: React.FC = () => {
   const [game, setGame] = useState<Game>(initialGame);
+  const [initialCardsDrawn, setInitialCardsDrawn] = useState(false);
 
   useEffect(() => {
-    if (game.players[0].hand.length === 0) {
+    if (!initialCardsDrawn) {
       setGame(prevGame => ({
         ...prevGame,
-        players: [
-          {
-            ...prevGame.players[0],
-            hand: drawInitialCards(prevGame.players[0]),
-          },
-          prevGame.players[1],
-        ],
+        players: prevGame.players.map((player, index) => ({
+          ...player,
+          hand: drawInitialCards(player),
+        })),
       }));
+      setInitialCardsDrawn(true);
     }
-
-    if (game.players[1].hand.length === 0) {
-      setGame(prevGame => ({
-        ...prevGame,
-        players: [
-          prevGame.players[0],
-          {
-            ...prevGame.players[1],
-            hand: drawInitialCards(prevGame.players[1]),
-          },
-        ],
-      }));
-    }
-  }, [game]);
+  }, [initialCardsDrawn]);
 
   const drawInitialCards = (player: Player): Card[] => {
     const drawnCards: Card[] = [];
@@ -79,6 +65,14 @@ const BoardPage: React.FC = () => {
     return drawnCards;
   };
 
+  const cardClassToIndex: { [key in CardClass]: number } = {
+    [CardClass.Melee]: 0,
+    [CardClass.Ranged]: 1,
+    [CardClass.Siege]: 2,
+    [CardClass.Weather]: 3,
+    [CardClass.Clear]: 4,
+  };
+
   const handleCardPlacement = (card: Card, fieldIndex: number) => {
     setGame(prevGame => ({
       ...prevGame,
@@ -86,19 +80,19 @@ const BoardPage: React.FC = () => {
         if (index === prevGame.currentPlayerIndex) {
           const newHand = player.hand.filter(c => c.id !== card.id);
           const newFields = player.fields.map((field, i) => {
-            if (i === fieldIndex) {
+            if (i === cardClassToIndex[card.class]) {
               const newCards = [...field.cards, card];
               const newTotalPower = field.totalPower + card.power;
               return { ...field, cards: newCards, totalPower: newTotalPower };
             }
             return field;
           });
-
+  
           return { ...player, hand: newHand, fields: newFields };
         }
         return player;
       }),
-    } as Game));
+    }));
   };
 
   return (
@@ -106,7 +100,6 @@ const BoardPage: React.FC = () => {
       <h1>Game</h1>
       <Link to="/">Return to menu</Link>
       
-      {/* Display initial cards for each player */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {game.players[0].hand.map(card => (
           <img
@@ -114,25 +107,43 @@ const BoardPage: React.FC = () => {
             src={card.image}
             alt={card.name}
             className="card"
-            onClick={() => handleCardPlacement(card, 0)}
+            style={{ height: '200px', width: 'auto', margin: '5px', bottom : '0' }}
+            onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
           />
         ))}
       </div>
-
-      {/* Current player's hand */}
+  
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {game.players[game.currentPlayerIndex].fields.map((field, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: 'center',  height: '200px' }}>
+            {field.cards.map(card => (
+              <img
+                key={card.id}
+                src={card.image}
+                alt={card.name}
+                className="card"
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+  
       <div>
         {game.players[game.currentPlayerIndex].hand.map((card) => (
           <button
             key={card.id}
-            onClick={() => handleCardPlacement(card, 0)}
+            onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
           >
             {card.name}
           </button>
         ))}
+      </div>
+  
+      <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', fontSize: 36, fontWeight: 'bold'}}>
+        Total Power: {game.players[game.currentPlayerIndex].fields.reduce((total, field) => total + field.totalPower, 0)}
       </div>
     </div>
   );
 };
 
 export default BoardPage;
-
