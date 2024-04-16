@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Game, Card, Player, CardClass } from '../components/types';
+import { Game, Card, Player, CardClass, WeatherEffect, WeatherCard } from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/Board-bg.png';
@@ -74,26 +74,43 @@ const BoardPage: React.FC = () => {
   };
 
   const handleCardPlacement = (card: Card, fieldIndex: number) => {
-    setGame(prevGame => ({
-      ...prevGame,
-      players: prevGame.players.map((player, index) => {
+    setGame(prevGame => {
+      let newPlayers = prevGame.players.map((player, index) => {
         if (index === prevGame.currentPlayerIndex) {
           const newHand = player.hand.filter(c => c.id !== card.id);
-          const newFields = player.fields.map((field, i) => {
+          let newFields = player.fields.map((field, i) => {
             if (i === cardClassToIndex[card.class]) {
               const newCards = [...field.cards, card];
-              const newTotalPower = field.totalPower + card.power;
-              return { ...field, cards: newCards, totalPower: newTotalPower };
+              return { ...field, cards: newCards };
             }
             return field;
           });
   
+          // If the placed card is a weather card, apply its effect
+          if (card.class === CardClass.Weather) {
+            newFields = newFields.map(field => {
+              if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
+                  (card.name === 'Fog' && field.type === CardClass.Ranged) ||
+                  (card.name === 'Rain' && field.type === CardClass.Siege)) {
+                return { ...field, weatherEffect: 1 };
+              } else if (card.name === 'Clear') {
+                return { ...field, weatherEffect: undefined };
+              }
+              return field;
+            });
+          }
+  
           return { ...player, hand: newHand, fields: newFields };
         }
         return player;
-      }),
-    }));
+      });
+  
+      return { ...prevGame, players: newPlayers };
+    });
   };
+  
+  
+  
 
   return (
     <div className="board" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', width: '150vh'}}>
@@ -140,8 +157,10 @@ const BoardPage: React.FC = () => {
       </div>
   
       <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', fontSize: 36, fontWeight: 'bold'}}>
-        Total Power: {game.players[game.currentPlayerIndex].fields.reduce((total, field) => total + field.totalPower, 0)}
+        Total Power: {game.players[game.currentPlayerIndex].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
       </div>
+
+
     </div>
   );
 };

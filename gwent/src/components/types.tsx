@@ -36,6 +36,7 @@ export interface Field {
   type: CardClass.Melee | CardClass.Ranged | CardClass.Siege;
   cards: Card[];
   totalPower: number;
+  weatherEffect?: number;
 }
 
 export interface Player {
