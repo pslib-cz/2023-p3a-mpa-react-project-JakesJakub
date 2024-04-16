@@ -1,10 +1,8 @@
-//BoardPage.tsx
 import React, { useState, useEffect } from 'react';
-import { Game, Card, Player} from '../components/types';
+import { Game, Card, Player, CardClass, WeatherEffect } from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/Board-bg.png';
-
 
 const initialGame: Game = {
   players: [
@@ -12,14 +10,22 @@ const initialGame: Game = {
       currentPlayer: null,
       hand: [],
       deck: player1Deck,
-      fields: [{ type: 'Melee', cards: [], totalPower: 0 }, { type: 'Ranged', cards: [], totalPower: 0 }, { type: 'Siege', cards: [], totalPower: 0 }],
+      fields: [
+        { type: CardClass.Melee, cards: [], totalPower: 0 },
+        { type: CardClass.Ranged, cards: [], totalPower: 0 },
+        { type: CardClass.Siege, cards: [], totalPower: 0 }
+      ],
       lifeCrystals: 2
     },
     {
       currentPlayer: null,
       hand: [],
       deck: player2Deck,
-      fields: [{ type: 'Melee', cards: [], totalPower: 0 }, { type: 'Ranged', cards: [], totalPower: 0 }, { type: 'Siege', cards: [], totalPower: 0 }],
+      fields: [
+        { type: CardClass.Melee, cards: [], totalPower: 0 },
+        { type: CardClass.Ranged, cards: [], totalPower: 0 },
+        { type: CardClass.Siege, cards: [], totalPower: 0 }
+      ],
       lifeCrystals: 2
     }
   ],
@@ -30,7 +36,6 @@ const BoardPage: React.FC = () => {
   const [game, setGame] = useState<Game>(initialGame);
 
   useEffect(() => {
-
     if (game.players[0].hand.length === 0) {
       setGame(prevGame => ({
         ...prevGame,
@@ -60,19 +65,16 @@ const BoardPage: React.FC = () => {
 
   const drawInitialCards = (player: Player): Card[] => {
     const drawnCards: Card[] = [];
-    const newDeck = [...player.deck];
-
+    let newDeck = [...player.deck];
 
     for (let i = 0; i < 10; i++) {
       if (newDeck.length > 0) {
         const randomIndex = Math.floor(Math.random() * newDeck.length);
         const drawnCard = newDeck[randomIndex];
         drawnCards.push(drawnCard);
-        newDeck.splice(randomIndex, 1);
+        newDeck = newDeck.filter(card => card.id !== drawnCard.id);
       }
     }
-
-    
 
     return drawnCards;
   };
@@ -133,3 +135,4 @@ const BoardPage: React.FC = () => {
 };
 
 export default BoardPage;
+

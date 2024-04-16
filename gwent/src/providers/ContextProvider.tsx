@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, createContext, useContext, useReducer } from 'react';
 import { Game, Card } from '../components/types';
+import { useEffect } from 'react';
 
 
 type Action =
@@ -68,7 +69,13 @@ const GameContext = createContext<{ state: Game; dispatch: React.Dispatch<Action
 
 
 export const GameProvider: React.FC<PropsWithChildren> = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const storedState = localStorage.getItem('gameState');
+    const initialGameState = storedState ? JSON.parse(storedState) : initialState;
+    const [state, dispatch] = useReducer(reducer, initialGameState);
+
+    useEffect(() => {
+      localStorage.setItem('gameState', JSON.stringify(state));
+    }, [state]);
 
     return <GameContext.Provider value={{ state, dispatch }}>{children}</GameContext.Provider>;
 };

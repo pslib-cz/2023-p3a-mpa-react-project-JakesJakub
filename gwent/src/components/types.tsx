@@ -1,28 +1,38 @@
+export enum CardClass {
+  Melee = 'Melee',
+  Ranged = 'Ranged',
+  Siege = 'Siege',
+  Weather = 'Weather',
+  Clear = 'Clear',
+}
+
+export enum WeatherEffect {
+  Frost = 'Frost',
+  Fog = 'Fog',
+  Rain = 'Rain',
+  Clear = 'Clear',
+}
+
 export interface Card {
   id: number;
   name: string;
   power: number;
-  class: 'Melee' | 'Ranged' | 'Siege' | 'Weather' | 'Clear';
+  class: CardClass;
   image: string;
 }
-
-
-export type WeatherEffect = 'Frost' | 'Fog' | 'Rain' | 'Clear';
 
 export interface WeatherCard extends Card {
   type: 'Weather';
   effect: WeatherEffect;
 }
 
-
 export interface ClearCard extends Card {
   type: 'Weather';
-  effect: 'Clear';
+  effect: WeatherEffect.Clear;
 }
 
-
 export interface Field {
-  type: 'Melee' | 'Ranged' | 'Siege';
+  type: CardClass.Melee | CardClass.Ranged | CardClass.Siege;
   cards: Card[];
   totalPower: number;
 }
