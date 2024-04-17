@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Game, Card, Player, CardClass } from '../components/types';
+import { Game, Card, Player, CardClass, cardClassToIndex } from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../assets/Board-bg.png';
@@ -183,10 +183,3 @@ const BoardPage: React.FC = () => {
 
 export default BoardPage;
 
-const cardClassToIndex: { [key in CardClass]: number } = {
-  [CardClass.Melee]: 0,
-  [CardClass.Ranged]: 1,
-  [CardClass.Siege]: 2,
-  [CardClass.Weather]: 3,
-  [CardClass.Clear]: 4,
-};

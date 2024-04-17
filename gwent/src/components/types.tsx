@@ -52,3 +52,11 @@ export interface Game {
   players: Player[];
   currentPlayerIndex: number;
 }
+
+export const cardClassToIndex: { [key in CardClass]: number } = {
+  [CardClass.Melee]: 0,
+  [CardClass.Ranged]: 1,
+  [CardClass.Siege]: 2,
+  [CardClass.Weather]: 3,
+  [CardClass.Clear]: 4,
+};
