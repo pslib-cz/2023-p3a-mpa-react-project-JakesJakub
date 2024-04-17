@@ -45,6 +45,7 @@ export interface Player {
   deck: Card[];
   fields: Field[];
   lifeCrystals: number;
+  hasPlacedCard: boolean;
 }
 
 export interface Game {
