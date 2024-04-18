@@ -37,6 +37,7 @@ const initialGame: Game = {
 const BoardPage: React.FC = () => {
   const [game, setGame] = useState<Game>(initialGame);
   const [roundsEnded, setRoundsEnded] = useState<number>(0);
+  const [winner, setWinner] = useState<number | null>(null);
 
   useEffect(() => {
     setGame(prevGame => ({
@@ -174,14 +175,22 @@ const BoardPage: React.FC = () => {
       
     }
   };
+
+  useEffect(() => {
+    if (game.players[0].lifeCrystals === 0) {
+      setWinner(2);
+    } else if (game.players[1].lifeCrystals === 0) {
+      setWinner(1);
+    }
+  }, [game]);
   
 
   return (
     <div className="board" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', width: '150vh'}}>
       <h1>Game</h1>
       <p style={{fontSize: 24, color: 'red', fontWeight: 'bold'}}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
-      <Link to="/">Return to menu</Link>
-
+      <Link to="/" style={{fontSize: 20, color: 'yellow', backgroundColor: 'green'}}>Return to menu</Link>
+      {winner && <h1 style={{color: 'lime', justifyContent: 'center'}}>Player {winner} has won the game!</h1>}
       
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {game.players.map((player, playerIndex) => (
