@@ -29,6 +29,12 @@ import Voorhis from '../assets/voorhis.png';
 import Trebuchet1 from '../assets/trebuchet1.png';
 import Trebuchet2 from '../assets/trebuchet2.png';
 import SiegeTower from '../assets/siege_tower.png';
+import Botchling from '../assets/botchling.png';
+import Defender1 from '../assets/defender1.png';
+import Wyvern from '../assets/wyvern.png';
+import Sivney from '../assets/sivney.png';
+import RottenMangonel from '../assets/rotten_mangonel.png';
+import IceGiant from '../assets/ice_giant.png';
 
 export const cards: (Card | WeatherCard | ClearCard)[] = [
     {
@@ -249,6 +255,84 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Siege,
         image: SiegeTower
     },
+    {
+        id: 31,
+        name: 'Frost',
+        power: 0,
+        class: CardClass.Weather,
+        type: 'Weather',
+        effect: WeatherEffect.Frost,
+        image: Frost
+    },
+    {
+        id: 32,
+        name: 'Fog',
+        power: 0,
+        class: CardClass.Weather,
+        type: 'Weather',
+        effect: WeatherEffect.Fog,
+        image: Fog
+    },
+    {
+        id: 33,
+        name: 'Rain',
+        power: 0,
+        class: CardClass.Weather,
+        type: 'Weather',
+        effect: WeatherEffect.Rain,
+        image: Rain
+    },
+    {
+        id: 34,
+        name: 'Clear',
+        power: 0,
+        class: CardClass.Weather,
+        type: 'Weather',
+        effect: WeatherEffect.Clear,
+        image: Clear
+    },
+    {
+        id: 35,
+        name: 'Botchling',
+        power: 4,
+        class: CardClass.Melee,
+        image: Botchling
+    },
+    {
+        id: 36,
+        name: 'Mahakaman Defender',
+        power: 5,
+        class: CardClass.Melee,
+        image: Defender1
+    },
+    {
+        id: 37,
+        name: 'Wyvern',
+        power: 2,
+        class: CardClass.Ranged,
+        image: Wyvern
+    },
+    {
+        id: 38,
+        name: 'Ida Emean aep Sivney',
+        power: 6,
+        class: CardClass.Ranged,
+        image: Sivney
+    },
+    {
+        id: 39,
+        name: 'Rotten Mangonel',
+        power: 3,
+        class: CardClass.Siege,
+        image: RottenMangonel
+    },
+    {
+        id: 40,
+        name: 'Ice Giant',
+        power: 5,
+        class: CardClass.Siege,
+        image: IceGiant
+    },
 ];
   
   
@@ -283,6 +367,16 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
     cards[27],
     cards[28],
     cards[29],
+    cards[30],
+    cards[31],
+    cards[32],
+    cards[33],
+    cards[34],
+    cards[35],
+    cards[36],
+    cards[37],
+    cards[38],
+    cards[39],
 
 
   ];
@@ -317,7 +411,17 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
     cards[26],
     cards[27],
     cards[28],
-    cards[29]
+    cards[29],
+    cards[30],
+    cards[31],
+    cards[32],
+    cards[33],
+    cards[34],
+    cards[35],
+    cards[36],
+    cards[37],
+    cards[38],
+    cards[39],
 
 
   ];
