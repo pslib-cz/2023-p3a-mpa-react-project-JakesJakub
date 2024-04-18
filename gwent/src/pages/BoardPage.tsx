@@ -64,21 +64,41 @@ const BoardPage: React.FC = () => {
   };
 
   const handleCardPlacement = (card: Card, fieldIndex: number) => {
-    setGame(prevGame => {
-      let newPlayers = prevGame.players.map((player, index) => {
-        if (index === prevGame.currentPlayerIndex && !player.hasPlacedCard) {
-          const newHand = player.hand.filter(c => c.id !== card.id);
-          let newFields = player.fields.map((field, i) => {
-            if (i === fieldIndex) {
-              const newCards = [...field.cards, card];
-              const totalPower = newCards.reduce((total, card) => total + card.power, 0);
-              return { ...field, cards: newCards, totalPower };
+    if (!game.players[game.currentPlayerIndex].hasPlacedCard) {
+      setGame(prevGame => {
+        let newPlayers = prevGame.players.map((player, index) => {
+          if (index === prevGame.currentPlayerIndex) {
+            const newHand = player.hand.filter(c => c.id !== card.id);
+            let newFields = player.fields.map((field, i) => {
+              if (i === fieldIndex) {
+                const newCards = [...field.cards, card];
+                const totalPower = newCards.reduce((total, card) => total + card.power, 0);
+                return { ...field, cards: newCards, totalPower };
+              }
+              return field;
+            });
+
+            if (card.class === CardClass.Weather) {
+              newFields = newFields.map(field => {
+                if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
+                    (card.name === 'Fog' && field.type === CardClass.Ranged) ||
+                    (card.name === 'Rain' && field.type === CardClass.Siege)) {
+                      return { ...field, weatherEffect: 1 };
+                    } else if (card.name === 'Clear') {
+                      return { ...field, weatherEffect: undefined };
+                }
+                return field;
+              });
             }
-            return field;
-          });
-  
-          if (card.class === CardClass.Weather) {
-            newFields = newFields.map(field => {
+
+            return { ...player, hand: newHand, fields: newFields, hasPlacedCard: true };
+          }
+          return player;
+        });
+
+        if (card.class === CardClass.Weather) {
+          newPlayers = newPlayers.map(player => {
+            let newFields = player.fields.map(field => {
               if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
                   (card.name === 'Fog' && field.type === CardClass.Ranged) ||
                   (card.name === 'Rain' && field.type === CardClass.Siege)) {
@@ -88,34 +108,14 @@ const BoardPage: React.FC = () => {
               }
               return field;
             });
-          }
-  
-          return { ...player, hand: newHand, fields: newFields, hasPlacedCard: true };
-        }
-        return player;
-      });
-  
-      if (card.class === CardClass.Weather) {
-        newPlayers = newPlayers.map(player => {
-          let newFields = player.fields.map(field => {
-            if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
-                (card.name === 'Fog' && field.type === CardClass.Ranged) ||
-                (card.name === 'Rain' && field.type === CardClass.Siege)) {
-                  return { ...field, weatherEffect: 1 };
-                } else if (card.name === 'Clear') {
-                  return { ...field, weatherEffect: undefined };
-            }
-            return field;
+            return { ...player, fields: newFields };
           });
-          return { ...player, fields: newFields };
-        });
-      }
-  
-      return { ...prevGame, players: newPlayers };
-    });
+        }
+
+        return { ...prevGame, players: newPlayers };
+      });
+    }
   };
-  
-  
 
   const switchTurn = () => {
     setGame(prevGame => {
@@ -136,19 +136,28 @@ const BoardPage: React.FC = () => {
   return (
     <div className="board" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', width: '150vh'}}>
       <h1>Game</h1>
-      <p>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
+      <p style={{fontSize: 18, color: 'red', fontWeight: 'bold'}}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
       <Link to="/">Return to menu</Link>
       
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {game.players[game.currentPlayerIndex].hand.map(card => (
-          <img
-            key={card.id}
-            src={card.image}
-            alt={card.name}
-            className="card"
-            style={{ height: '200px', width: 'auto', margin: '5px', bottom : '0' }}
-            onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
-          />
+        {game.players.map((player, playerIndex) => (
+          <div key={playerIndex}>
+            {player.hand.map(card => (
+              <button
+                key={card.id}
+                onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
+                disabled={playerIndex !== game.currentPlayerIndex || player.hasPlacedCard}
+                style={{ margin: '5px' }}
+              >
+                <img
+                  src={card.image}
+                  alt={card.name}
+                  className="card"
+                  style={{ height: '200px', width: 'auto' }}
+                />
+              </button>
+            ))}
+          </div>
         ))}
       </div>
 
@@ -159,27 +168,31 @@ const BoardPage: React.FC = () => {
 
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {game.players[game.currentPlayerIndex].fields.map((field, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'center',  height: '200px' }}>
-            {field.cards.map(card => (
-              <img
-                key={card.id}
-                src={card.image}
-                alt={card.name}
-                className="card"
-              />
+        {game.players.map((player, playerIndex) => (
+          <div key={playerIndex}>
+            {player.fields.map((field, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'center',  height: '200px' }}>
+                {field.cards.map(card => (
+                  <img
+                    key={card.id}
+                    src={card.image}
+                    alt={card.name}
+                    className="card"
+                  />
+                ))}
+              </div>
             ))}
           </div>
         ))}
       </div>
 
 
-      <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', fontSize: 36, fontWeight: 'bold'}}>
-      Total Power: {game.players[game.currentPlayerIndex].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
+      <div style={{ position: 'absolute', justifyContent: 'center', left: 0, top: '10%', transform: 'translateY(-50%)', fontSize: 36, fontWeight: 'bold', color: 'yellow'}}>
+        Total Power Player 1: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
+        Total Power Player 2: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
       </div>
     </div>
   );
 };
 
 export default BoardPage;
-
