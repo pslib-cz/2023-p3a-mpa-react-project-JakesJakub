@@ -36,6 +36,7 @@ const initialGame: Game = {
 
 const BoardPage: React.FC = () => {
   const [game, setGame] = useState<Game>(initialGame);
+  const [roundsEnded, setRoundsEnded] = useState<number>(0);
 
   useEffect(() => {
     setGame(prevGame => ({
@@ -133,11 +134,54 @@ const BoardPage: React.FC = () => {
     });
   };
 
+  const handleEndRound = () => {
+    setRoundsEnded(prevRoundsEnded => prevRoundsEnded + 1);
+
+  
+    if (roundsEnded === 1) {
+      const player1TotalPower = game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0);
+      const player2TotalPower = game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0);
+  
+      if (player1TotalPower < player2TotalPower) {
+        setGame(prevGame => ({
+          ...prevGame,
+          players: [
+            { ...prevGame.players[0], lifeCrystals: prevGame.players[0].lifeCrystals - 1, fields: initialGame.players[0].fields },
+            { ...prevGame.players[1], fields: initialGame.players[1].fields }
+          ]
+        }));
+      } else if (player1TotalPower > player2TotalPower) {
+        setGame(prevGame => ({
+          ...prevGame,
+          players: [
+            { ...prevGame.players[0], fields: initialGame.players[0].fields },
+            { ...prevGame.players[1], lifeCrystals: prevGame.players[1].lifeCrystals - 1, fields: initialGame.players[1].fields }
+          ]
+        }));
+      } else {
+
+        setGame(prevGame => ({
+          ...prevGame,
+          players: [
+            { ...prevGame.players[0], lifeCrystals: prevGame.players[0].lifeCrystals - 1, fields: initialGame.players[0].fields },
+            { ...prevGame.players[1], lifeCrystals: prevGame.players[1].lifeCrystals - 1, fields: initialGame.players[1].fields }
+          ]
+        }));
+      }
+  
+      setRoundsEnded(0);
+  
+      
+    }
+  };
+  
+
   return (
     <div className="board" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', width: '150vh'}}>
       <h1>Game</h1>
-      <p style={{fontSize: 18, color: 'red', fontWeight: 'bold'}}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
+      <p style={{fontSize: 24, color: 'red', fontWeight: 'bold'}}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
       <Link to="/">Return to menu</Link>
+
       
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {game.players.map((player, playerIndex) => (
@@ -150,7 +194,7 @@ const BoardPage: React.FC = () => {
                 style={{ margin: '5px' }}
               >
                 <img
-                  src={card.image}
+                  src={playerIndex === game.currentPlayerIndex ? card.image : card.cardback}
                   alt={card.name}
                   className="card"
                   style={{ height: '200px', width: 'auto' }}
@@ -166,10 +210,14 @@ const BoardPage: React.FC = () => {
         <button onClick={switchTurn}>End Turn</button>
       )}
 
+      {game.players[game.currentPlayerIndex].hasPlacedCard && (
+        <button onClick={() => { handleEndRound(); switchTurn()}}>End Round</button>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {game.players.map((player, playerIndex) => (
           <div key={playerIndex}>
+            <p>Player {playerIndex + 1} Life Crystals: {player.lifeCrystals}</p>
             {player.fields.map((field, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'center',  height: '200px' }}>
                 {field.cards.map(card => (

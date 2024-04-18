@@ -35,6 +35,7 @@ import Wyvern from '../assets/wyvern.png';
 import Sivney from '../assets/sivney.png';
 import RottenMangonel from '../assets/rotten_mangonel.png';
 import IceGiant from '../assets/ice_giant.png';
+import CardBack from '../assets/card.png';
 
 export const cards: (Card | WeatherCard | ClearCard)[] = [
     {
@@ -42,147 +43,168 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         name: 'Geralt of Rivia',
         power: 15,
         class: CardClass.Melee,
-        image: Geralt
+        image: Geralt,
+        cardback: CardBack
     },
     {
         id: 2,
         name: 'Ciri',
         power: 15,
         class: CardClass.Melee,
-        image: Ciri
+        image: Ciri,
+        cardback: CardBack
     },
     {
         id: 3,
         name: 'Yennefer of Vengerberg',
         power: 7,
         class: CardClass.Ranged,
-        image: Yennefer
+        image: Yennefer,
+        cardback: CardBack
     },
     {
         id: 4,
         name: 'Triss Merigold',
         power: 7,
         class: CardClass.Melee,
-        image: Triss
+        image: Triss,
+        cardback: CardBack
     },
     {
         id: 5,
         name: 'Vesemir',
         power: 6,
         class: CardClass.Melee,
-        image: Vesemir
+        image: Vesemir,
+        cardback: CardBack
     },
     {
         id: 6,
         name: 'Albrich',
         power: 2,
         class: CardClass.Ranged,
-        image: Albrich
+        image: Albrich,
+        cardback: CardBack
     },
     {
         id: 7,
         name: 'Dol Blathanna Archer',
         power: 4,
         class: CardClass.Ranged,
-        image: Archer
+        image: Archer,
+        cardback: CardBack
     },
     {
         id: 8,
         name: 'Assire var Anahid',
         power: 6,
         class: CardClass.Ranged,
-        image: Assire
+        image: Assire,
+        cardback: CardBack
     },
     {
         id: 9,
         name: 'Balista',
         power: 6,
         class: CardClass.Siege,
-        image: Ballista
+        image: Ballista,
+        cardback: CardBack
     },
     {
         id: 10,
         name: 'Cahir Mawe Dyffryn aep Ceallach',
         power: 6,
         class: CardClass.Melee,
-        image: Ceallach
+        image: Ceallach,
+        cardback: CardBack
     },
     {
         id: 11,
         name: 'Vernon Roche',
         power: 10,
         class: CardClass.Melee,
-        image: Roche
+        image: Roche,
+        cardback: CardBack
     },
     {
         id: 12,
         name: 'Puttkammer',
         power: 3,
         class: CardClass.Ranged,
-        image: Puttkammer
+        image: Puttkammer,
+        cardback: CardBack
     },
     {
         id: 13,
         name: 'Sabrina Glevissig',
         power: 4,
         class: CardClass.Ranged,
-        image: Sabrina
+        image: Sabrina,
+        cardback: CardBack
     },
     {
         id: 14,
         name: 'Toruviel',
         power: 2,
         class: CardClass.Ranged,
-        image: Toruviel
+        image: Toruviel,
+        cardback: CardBack
     },
     {
         id: 15,
         name: 'Ves',
         power: 5,
         class: CardClass.Melee,
-        image: Ves
+        image: Ves,
+        cardback: CardBack
     },
     {
         id: 16,
         name: 'Sigismund Dijkstra',
         power: 4,
         class: CardClass.Melee,
-        image: Dijkstra
+        image: Dijkstra,
+        cardback: CardBack
     },
     {
         id: 17,
         name: 'Dethmold',
         power: 6,
         class: CardClass.Ranged,
-        image: Dethmold
+        image: Dethmold,
+        cardback: CardBack
     },
     {
         id: 18,
         name: 'Draug',
         power: 10,
         class: CardClass.Melee,
-        image: Draug
+        image: Draug,
+        cardback: CardBack
     },
     {
         id: 19,
         name: 'Fiend',
         power: 6,
         class: CardClass.Melee,
-        image: Fiend
+        image: Fiend,
+        cardback: CardBack
     },
     {
         id: 20,
         name: 'Redanian Foot Soldier',
         power: 1,
         class: CardClass.Melee,
-        image: FootSoldier
+        image: FootSoldier,
+        cardback: CardBack
     },
     {
         id: 21,
         name: 'Morteisen',
         power: 3,
         class: CardClass.Melee,
-        image: Morteisen
+        image: Morteisen,
+        cardback: CardBack
     },
     {
         id: 22,
@@ -191,7 +213,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Frost,
-        image: Frost
+        image: Frost,
+        cardback: CardBack
     },
     {
         id: 23,
@@ -200,7 +223,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Fog,
-        image: Fog
+        image: Fog,
+        cardback: CardBack
     },
     {
         id: 24,
@@ -209,7 +233,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Rain,
-        image: Rain
+        image: Rain,
+        cardback: CardBack
     },
     {
         id: 25,
@@ -218,42 +243,48 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Clear,
-        image: Clear
+        image: Clear,
+        cardback: CardBack
     },
     {
         id: 26,
         name: 'Fire Scorpion',
         power: 5,
         class: CardClass.Siege,
-        image: Scorpion
+        image: Scorpion,
+        cardback: CardBack
     },
     {
         id: 27,
         name: 'Morvran Voorhis',
         power: 10,
         class: CardClass.Siege,
-        image: Voorhis
+        image: Voorhis,
+        cardback: CardBack
     },
     {
         id: 28,
         name: 'Trebuchet',
         power: 6,
         class: CardClass.Siege,
-        image: Trebuchet1
+        image: Trebuchet1,
+        cardback: CardBack
     },
     {
         id: 29,
         name: 'Trebuchet',
         power: 6,
         class: CardClass.Siege,
-        image: Trebuchet2
+        image: Trebuchet2,
+        cardback: CardBack
     },
     {
         id: 30,
         name: 'Siege Tower',
         power: 6,
         class: CardClass.Siege,
-        image: SiegeTower
+        image: SiegeTower,
+        cardback: CardBack
     },
     {
         id: 31,
@@ -262,7 +293,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Frost,
-        image: Frost
+        image: Frost,
+        cardback: CardBack
     },
     {
         id: 32,
@@ -271,7 +303,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Fog,
-        image: Fog
+        image: Fog,
+        cardback: CardBack
     },
     {
         id: 33,
@@ -280,7 +313,8 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Rain,
-        image: Rain
+        image: Rain,
+        cardback: CardBack
     },
     {
         id: 34,
@@ -289,49 +323,56 @@ export const cards: (Card | WeatherCard | ClearCard)[] = [
         class: CardClass.Weather,
         type: 'Weather',
         effect: WeatherEffect.Clear,
-        image: Clear
+        image: Clear,
+        cardback: CardBack
     },
     {
         id: 35,
         name: 'Botchling',
         power: 4,
         class: CardClass.Melee,
-        image: Botchling
+        image: Botchling,
+        cardback: CardBack
     },
     {
         id: 36,
         name: 'Mahakaman Defender',
         power: 5,
         class: CardClass.Melee,
-        image: Defender1
+        image: Defender1,
+        cardback: CardBack
     },
     {
         id: 37,
         name: 'Wyvern',
         power: 2,
         class: CardClass.Ranged,
-        image: Wyvern
+        image: Wyvern,
+        cardback: CardBack
     },
     {
         id: 38,
         name: 'Ida Emean aep Sivney',
         power: 6,
         class: CardClass.Ranged,
-        image: Sivney
+        image: Sivney,
+        cardback: CardBack
     },
     {
         id: 39,
         name: 'Rotten Mangonel',
         power: 3,
         class: CardClass.Siege,
-        image: RottenMangonel
+        image: RottenMangonel,
+        cardback: CardBack
     },
     {
         id: 40,
         name: 'Ice Giant',
         power: 5,
         class: CardClass.Siege,
-        image: IceGiant
+        image: IceGiant,
+        cardback: CardBack
     },
 ];
   

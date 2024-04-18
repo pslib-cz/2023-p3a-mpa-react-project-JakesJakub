@@ -19,6 +19,7 @@ export interface Card {
   power: number;
   class: CardClass;
   image: string;
+  cardback: string;
 }
 
 
