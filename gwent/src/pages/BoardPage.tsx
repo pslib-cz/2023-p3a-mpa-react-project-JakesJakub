@@ -187,9 +187,9 @@ const BoardPage: React.FC = () => {
       </div>
 
 
-      <div style={{ position: 'absolute', justifyContent: 'center', left: 0, top: '10%', transform: 'translateY(-50%)', fontSize: 36, fontWeight: 'bold', color: 'yellow'}}>
-        Total Power Player 1: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
-        Total Power Player 2: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
+      <div style={{ position: 'absolute', justifyContent: 'center', left: 0, top: '10%', transform: 'translateX(125%)', fontSize: 36, fontWeight: 'bold', color: 'yellow'}}>
+        Player1 Total Power: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
+        Player2 Total Power: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
       </div>
     </div>
   );
