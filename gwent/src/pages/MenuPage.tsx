@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './MenuPage.module.css';
 
 const MenuPage: React.FC = () => {
   return (
     <div className="menu-page">
-      <h1>Gwent</h1>
-      <Link to="/board">
-        Start
+      <div className={styles['menu-page']}>
+      <Link className={styles['start']} to="/board">
+        Play Game
       </Link>
+      </div>
     </div>
   );
 };
