@@ -1,7 +1,4 @@
-
-  html {
-    font-size: 32px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
 
 .menu-page {
     background-image: url('../assets/gwent_bg.png');
@@ -17,20 +14,28 @@
   }
   
 
-
   .start{
     text-decoration: none;
-    background-image: linear-gradient(to top, #002f12, #00bf46);
-    color: black;
-    -webkit-text-stroke: gold 1px;
-    margin-bottom: 5rem;
+    color: transparent;
+
+    border: 5px solid transparent;
+    margin-bottom: 10rem;
     padding: .5rem 1.5rem;
-    border-radius: 5px;
+    box-sizing: border-box;
     font-weight: bold;
     transition: background-color 0.2s ease;
+    background-image: linear-gradient(to top, rgb(99, 81, 31), rgb(192, 160, 73));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .start-text{
+    font-size: 64px;
+    font-family: platypi;
   }
   
   .start:hover {
-    background-image: linear-gradient(to top, #001e0e, #007629);
+    background-image: linear-gradient(to top, rgb(75, 62, 23), rgb(136, 114, 52));
   }
   

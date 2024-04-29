@@ -7,7 +7,9 @@ const MenuPage: React.FC = () => {
     <div className="menu-page">
       <div className={styles['menu-page']}>
       <Link className={styles['start']} to="/board">
-        Play Game
+        <div className={styles['start-text']}>
+          Play Game
+        </div>
       </Link>
       </div>
     </div>
