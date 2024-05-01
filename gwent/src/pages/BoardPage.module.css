@@ -68,13 +68,35 @@
     height: 150px;
   }
   
-  .totalPower {
-    font-size: 36px;
+  .totalPower1 {
+    font-size: 32px;
     font-weight: bold;
-    color: yellow;
+    color: black;
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-color: #E8A700;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 64px;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
   }
   
-
+  .totalPower2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-color: #64D0FF;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 64px;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+  }
+  
+  
   .endTurn{
     text-decoration: none;
     color: transparent;

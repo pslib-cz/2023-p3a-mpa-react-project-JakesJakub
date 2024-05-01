@@ -4,7 +4,7 @@ import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import styles from './BoardPage.module.css';
 import backgroundImage from '../assets/Board-bg3.png';
-import lifeCrystalImage from '../assets/lifeCrystal.png'; // Import the image for life crystal
+import lifeCrystalImage from '../assets/lifeCrystal.png';
 
 const initialGame: Game = {
   players: [
@@ -13,9 +13,9 @@ const initialGame: Game = {
       hand: [],
       deck: player1Deck,
       fields: [
-        { type: CardClass.Melee, cards: [], totalPower: 0 },
+        { type: CardClass.Siege, cards: [], totalPower: 0 },
         { type: CardClass.Ranged, cards: [], totalPower: 0 },
-        { type: CardClass.Siege, cards: [], totalPower: 0 }
+        { type: CardClass.Melee, cards: [], totalPower: 0 }
       ],
       lifeCrystals: 2,
       hasPlacedCard: false
@@ -68,13 +68,15 @@ const BoardPage: React.FC = () => {
   };
 
   const handleCardPlacement = (card: Card, fieldIndex: number) => {
+    const correctedFieldIndex = game.currentPlayerIndex === 0 ? (fieldIndex === 0 ? 2 : (fieldIndex === 2 ? 0 : fieldIndex)) : fieldIndex;
+
     if (!game.players[game.currentPlayerIndex].hasPlacedCard) {
       setGame(prevGame => {
         let newPlayers = prevGame.players.map((player, index) => {
           if (index === prevGame.currentPlayerIndex) {
             const newHand = player.hand.filter(c => c.id !== card.id);
             let newFields = player.fields.map((field, i) => {
-              if (i === fieldIndex) {
+              if (i === correctedFieldIndex) {
                 const newCards = [...field.cards, card];
                 const totalPower = newCards.reduce((total, card) => total + card.power, 0);
                 return { ...field, cards: newCards, totalPower };
@@ -243,14 +245,18 @@ const BoardPage: React.FC = () => {
           <a className={styles.endRound} onClick={() => { handleEndRound(); switchTurn() }}>End Round</a>
         )}
 
-        <div className={styles.totalPower}>
-          Player1 Total Power: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
+        <div>
+          <div className={styles.totalPower1}>
+            {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} 
+          </div>
           <div className={styles.lifeCrystals}>
           {Array.from({ length: game.players[0].lifeCrystals }, (_, index) => (
             <img key={index} src={lifeCrystalImage} alt="Life Crystal" className={styles.lifeCrystalImage} />
           ))}
         </div>
-          Player2 Total Power: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
+        <div className={styles.totalPower2}>
+            {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} 
+          </div>
           <div className={styles.lifeCrystals}>
           {Array.from({ length: game.players[1].lifeCrystals }, (_, index) => (
             <img key={index} src={lifeCrystalImage} alt="Life Crystal" className={styles.lifeCrystalImage} />
