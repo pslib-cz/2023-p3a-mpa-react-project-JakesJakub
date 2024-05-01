@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Game, Card, Player, CardClass, cardClassToIndex } from '../components/types';
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../assets/Board-bg.png';
+import styles from './BoardPage.module.css';
+import backgroundImage from '../assets/Board-bg3.png';
+import lifeCrystalImage from '../assets/lifeCrystal.png'; // Import the image for life crystal
 
 const initialGame: Game = {
   players: [
@@ -83,11 +85,11 @@ const BoardPage: React.FC = () => {
             if (card.class === CardClass.Weather) {
               newFields = newFields.map(field => {
                 if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
-                    (card.name === 'Fog' && field.type === CardClass.Ranged) ||
-                    (card.name === 'Rain' && field.type === CardClass.Siege)) {
-                      return { ...field, weatherEffect: 1 };
-                    } else if (card.name === 'Clear') {
-                      return { ...field, weatherEffect: undefined };
+                  (card.name === 'Fog' && field.type === CardClass.Ranged) ||
+                  (card.name === 'Rain' && field.type === CardClass.Siege)) {
+                  return { ...field, weatherEffect: 1 };
+                } else if (card.name === 'Clear') {
+                  return { ...field, weatherEffect: undefined };
                 }
                 return field;
               });
@@ -102,11 +104,11 @@ const BoardPage: React.FC = () => {
           newPlayers = newPlayers.map(player => {
             let newFields = player.fields.map(field => {
               if ((card.name === 'Frost' && field.type === CardClass.Melee) ||
-                  (card.name === 'Fog' && field.type === CardClass.Ranged) ||
-                  (card.name === 'Rain' && field.type === CardClass.Siege)) {
-                    return { ...field, weatherEffect: 1 };
-                  } else if (card.name === 'Clear') {
-                    return { ...field, weatherEffect: undefined };
+                (card.name === 'Fog' && field.type === CardClass.Ranged) ||
+                (card.name === 'Rain' && field.type === CardClass.Siege)) {
+                return { ...field, weatherEffect: 1 };
+              } else if (card.name === 'Clear') {
+                return { ...field, weatherEffect: undefined };
               }
               return field;
             });
@@ -138,11 +140,10 @@ const BoardPage: React.FC = () => {
   const handleEndRound = () => {
     setRoundsEnded(prevRoundsEnded => prevRoundsEnded + 1);
 
-  
     if (roundsEnded === 1) {
       const player1TotalPower = game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0);
       const player2TotalPower = game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0);
-  
+
       if (player1TotalPower < player2TotalPower) {
         setGame(prevGame => ({
           ...prevGame,
@@ -169,10 +170,9 @@ const BoardPage: React.FC = () => {
           ]
         }));
       }
-  
+
       setRoundsEnded(0);
-  
-      
+
     }
   };
 
@@ -183,58 +183,28 @@ const BoardPage: React.FC = () => {
       setWinner(1);
     }
   }, [game]);
-  
+
 
   return (
-    <div className="board" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', width: '150vh'}}>
+    <div className={styles.board} style={{ backgroundImage: `url(${backgroundImage})` }}>
       <h1>Game</h1>
-      <p style={{fontSize: 24, color: 'red', fontWeight: 'bold'}}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
-      <Link to="/" style={{fontSize: 20, color: 'yellow', backgroundColor: 'green'}}>Return to menu</Link>
-      {winner && <h1 style={{color: 'lime', justifyContent: 'center'}}>Player {winner} has won the game!</h1>}
-      
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {game.players.map((player, playerIndex) => (
-          <div key={playerIndex}>
-            {player.hand.map(card => (
-              <button
-                key={card.id}
-                onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
-                disabled={playerIndex !== game.currentPlayerIndex || player.hasPlacedCard}
-                style={{ margin: '5px' }}
-              >
-                <img
-                  src={playerIndex === game.currentPlayerIndex ? card.image : card.cardback}
-                  alt={card.name}
-                  className="card"
-                  style={{ height: '200px', width: 'auto' }}
-                />
-              </button>
-            ))}
-          </div>
-        ))}
+      <p className={styles.currentTurn}>{`Player ${game.currentPlayerIndex + 1}'s Turn`}</p>
+      <div>
+        <Link to="/" className={styles.returnLink}>Return to menu</Link>
       </div>
+      {winner && <h1 className={styles.winnerMessage}>Player {winner} has won the game!</h1>}
 
-
-      {game.players[game.currentPlayerIndex].hasPlacedCard && (
-        <button onClick={switchTurn}>End Turn</button>
-      )}
-
-      {game.players[game.currentPlayerIndex].hasPlacedCard && (
-        <button onClick={() => { handleEndRound(); switchTurn()}}>End Round</button>
-      )}
-
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className={styles.leftContainer}>
         {game.players.map((player, playerIndex) => (
           <div key={playerIndex}>
-            <p>Player {playerIndex + 1} Life Crystals: {player.lifeCrystals}</p>
-            {player.fields.map((field, i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'center',  height: '200px' }}>
+            {player.fields.map((field, fieldIndex) => (
+              <div key={fieldIndex} className={styles.fieldContainer}>
                 {field.cards.map(card => (
                   <img
                     key={card.id}
                     src={card.image}
                     alt={card.name}
-                    className="card"
+                    className={styles.cardImage}
                   />
                 ))}
               </div>
@@ -243,10 +213,50 @@ const BoardPage: React.FC = () => {
         ))}
       </div>
 
+      <div className={styles.rightContainer}>
+        <div className={styles.buttonContainer}>
+          {game.players.map((player, playerIndex) => (
+            <div key={playerIndex} className={styles.handContainer}>
+              {player.hand.map(card => (
+                <button
+                  key={card.id}
+                  onClick={() => handleCardPlacement(card, cardClassToIndex[card.class])}
+                  disabled={playerIndex !== game.currentPlayerIndex || player.hasPlacedCard}
+                  className={styles.cardButton}
+                >
+                  <img
+                    src={playerIndex === game.currentPlayerIndex ? card.image : card.cardback}
+                    alt={card.name}
+                    className={styles.cardImage}
+                  />
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
 
-      <div style={{ position: 'absolute', justifyContent: 'center', left: 0, top: '10%', transform: 'translateX(125%)', fontSize: 36, fontWeight: 'bold', color: 'yellow'}}>
-        Player1 Total Power: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
-        Player2 Total Power: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
+        {game.players[game.currentPlayerIndex].hasPlacedCard && (
+          <a className={styles.endTurn} onClick={switchTurn}>End Turn</a>
+        )}
+
+        {game.players[game.currentPlayerIndex].hasPlacedCard && (
+          <a className={styles.endRound} onClick={() => { handleEndRound(); switchTurn() }}>End Round</a>
+        )}
+
+        <div className={styles.totalPower}>
+          Player1 Total Power: {game.players[0].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)} <br />
+          <div className={styles.lifeCrystals}>
+          {Array.from({ length: game.players[0].lifeCrystals }, (_, index) => (
+            <img key={index} src={lifeCrystalImage} alt="Life Crystal" className={styles.lifeCrystalImage} />
+          ))}
+        </div>
+          Player2 Total Power: {game.players[1].fields.reduce((total, field) => total + field.cards.reduce((fieldTotal, card) => fieldTotal + (field.weatherEffect || card.power), 0), 0)}
+          <div className={styles.lifeCrystals}>
+          {Array.from({ length: game.players[1].lifeCrystals }, (_, index) => (
+            <img key={index} src={lifeCrystalImage} alt="Life Crystal" className={styles.lifeCrystalImage} />
+          ))}
+        </div>
+        </div>
       </div>
     </div>
   );

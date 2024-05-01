@@ -1,1 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+.board {
+    background-size: cover;
+    font-family: platypi;
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    display: flex;
+  }
+  
+  .leftContainer {
+    width: 50%;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .rightContainer {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .currentTurn {
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+  }
+  
+  .returnLink {
+    font-size: 20px;
+    color: yellow;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .winnerMessage {
+    color: lime;
+    justify-content: center;
+  }
+  
+  .cardButton {
+    margin: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  
+  .cardImage {
+    height: 150px;
+    width: auto;
+    display: block;
+    border-radius: 5px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .fieldContainer {
+    display: flex;
+    justify-content: center;
+    height: 150px;
+  }
+  
+  .totalPower {
+    font-size: 36px;
+    font-weight: bold;
+    color: yellow;
+  }
+  
+
+  .endTurn{
+    text-decoration: none;
+    color: transparent;
+    font-size: 32px;
+    border: 5px solid transparent;
+    padding: .5rem 1.5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    background-image: linear-gradient(to top, rgb(99, 81, 31), rgb(192, 160, 73));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .endTurn:hover {
+    background-image: linear-gradient(to top, rgb(75, 62, 23), rgb(136, 114, 52));
+  }
+  
+
+  .endRound{
+    text-decoration: none;
+    color: transparent;
+    font-size: 32px;
+    border: 5px solid transparent;
+    padding: .5rem 1.5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    background-image: linear-gradient(to top, #6b5322, #ff0000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .endRound:hover {
+    background-image: linear-gradient(to top, rgb(255, 0, 0), rgb(255, 0, 0))
+  }
+  
