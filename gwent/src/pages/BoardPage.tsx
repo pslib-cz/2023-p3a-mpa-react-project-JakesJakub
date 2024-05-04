@@ -202,7 +202,7 @@ const BoardPage: React.FC = () => {
 
   return (
     
-    <div className={styles.board} style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className={styles.board}>
             {isHovering && hoveredCard && (
         <div className={styles.hoveredCard}>
           <img src={hoveredCard.image} alt={hoveredCard.name} className={styles.hoveredCardImage} />
