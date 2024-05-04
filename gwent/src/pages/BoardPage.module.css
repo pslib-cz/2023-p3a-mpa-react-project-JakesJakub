@@ -96,7 +96,7 @@
   }
   
   .cardImage {
-    height: 150px;
+    height: 145px;
     width: auto;
     display: block;
     border-radius: 5px;
@@ -111,7 +111,8 @@
   .fieldContainer {
     display: flex;
     justify-content: center;
-    height: 150px;
+    height: 140px;
+    margin: 10px;
   }
   
   .totalPower1 {
@@ -208,5 +209,5 @@
   .lifeCrystals{
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 5px;
   }
