@@ -1,11 +1,11 @@
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
+import { createHashRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
 import MenuPage from './pages/MenuPage';
 import BoardPage from './pages/BoardPage';
 
 
 function App() {
 
-  const router = createBrowserRouter(
+  const router = createHashRouter(
     createRoutesFromElements([
       <Route path="/" element={<MenuPage />} />,
       <Route path="/board" element={<BoardPage />} />,
