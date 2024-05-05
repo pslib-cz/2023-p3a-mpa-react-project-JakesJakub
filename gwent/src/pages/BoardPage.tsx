@@ -3,7 +3,6 @@ import { Game, Card, Player, CardClass, cardClassToIndex } from '../components/t
 import { player1Deck, player2Deck } from '../components/cards';
 import { Link } from 'react-router-dom';
 import styles from './BoardPage.module.css';
-import backgroundImage from '../assets/Board-bg5.png';
 import lifeCrystalImage from '../assets/lifeCrystal.png';
 
 const initialGame: Game = {
@@ -42,6 +41,7 @@ const BoardPage: React.FC = () => {
   const [winner, setWinner] = useState<number | null>(null);
   const [hoveredCard, setHoveredCard] = useState<Card | null>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [weatherEffects, setWeatherEffects] = useState<string[]>([]);
 
 
   const handleCardMouseEnter = (card: Card) => {
@@ -130,6 +130,16 @@ const BoardPage: React.FC = () => {
             return { ...player, fields: newFields };
           });
         }
+        if (card.class === CardClass.Weather) {
+          setWeatherEffects(prevEffects => {
+            if (card.name === 'Clear') {
+              return [];
+            } else if (!prevEffects.includes(card.name)) {
+              return [...prevEffects, card.name];
+            }
+            return prevEffects;
+          });
+        }
 
         return { ...prevGame, players: newPlayers };
       });
@@ -201,7 +211,6 @@ const BoardPage: React.FC = () => {
 
 
   return (
-    
     <div className={styles.board}>
             {isHovering && hoveredCard && (
         <div className={styles.hoveredCard}>
@@ -288,6 +297,11 @@ const BoardPage: React.FC = () => {
           <a className={styles.endRound} onClick={() => { handleEndRound(); switchTurn() }}>End Round</a>
         )}
 
+<div className={styles.weatherEffectContainer}>
+      {weatherEffects.map((effect, index) => (
+          <p key={index} className={styles.weatherEffectText}>{`${effect} weather effect is applied.`}</p>
+        ))}
+      </div>
       </div>
     </div>
   );

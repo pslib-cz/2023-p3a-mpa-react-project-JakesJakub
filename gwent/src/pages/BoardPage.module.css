@@ -72,6 +72,7 @@
     margin-top: 0px;
     align-items: center;
     text-align: center;
+    text-shadow:4px 4px 8px #000000;
   }
   
   .returnLink {
@@ -211,3 +212,14 @@
     margin-top: 5px;
   }
 
+  .weatherEffectContainer{
+    justify-content: center;
+    margin-top: 5rem;
+  }
+
+.weatherEffectText{
+    font-size: 24px;
+    color: rgb(107, 220, 255);    
+    text-shadow:4px 4px 8px #000000;
+    margin: 1px;
+}
