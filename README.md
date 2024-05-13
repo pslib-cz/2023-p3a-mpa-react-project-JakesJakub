@@ -1,14 +1,14 @@
-# Název mého projektu, programu, hry...
+# Gwent
 
 ## Téma
 
-Tady bude krátký a úderný popis o účelu, významu, funkcionalitě...
+Jedná se o karetní hru. Cílem hry je porazit protivníka ve dvou kolech pomocí své armády. Armáda je reprezentována kartami jednotek, které vycházejí ze světa Zaklínače. Hráč musí porazit protivníka tím, že součet útočné síly jejich karet převýší protivníka.
+https://www.zatrolene-hry.cz/spolecenska-hra/gwint-5749/
+https://www.playgwent.com/en/join
 
 ## Odkazy pro vývoj
 
-Zde budou živé linky na:
-- figma návrh stránek aplikace
-- odkaz do repozitáře projektu, pokud pracuji v teamu a zde vývoj neprobíhá
+[Odkaz na Figmu](https://www.figma.com/file/oPEZtZDGTHvjsQjZs6EM9u/Untitled?type=design&node-id=0-1&mode=design&t=cAoFRAVAZoIcedsY-0)
 
 ### Z čeho čerpat
 
