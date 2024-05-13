@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
 
 .menu-page {
-    background-image: url('../assets/gwent_bg.png');
+    background-image: url('../assets/Board-bg2.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -17,7 +17,10 @@
   .start{
     text-decoration: none;
     color: transparent;
+
     border: 5px solid transparent;
+    margin-bottom: 10rem;
+    padding: .5rem 1.5rem;
     box-sizing: border-box;
     font-weight: bold;
     transition: background-color 0.2s ease;
@@ -36,11 +39,17 @@
     background-image: linear-gradient(to top, rgb(75, 62, 23), rgb(136, 114, 52));
   }
   
-  .container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5rem;
-    padding: .5rem 1.5rem;
-  }
+  p{
+    font-size: 24px;
+    font-family: platypi;
+    color: white;
+    text-align: center;
+    margin: 1rem 10rem;
+}
+h1{
+    font-size: 72px;
+    font-family: platypi;
+    color: white;
+    text-align: center;
+    margin: 5rem 10rem;
+}

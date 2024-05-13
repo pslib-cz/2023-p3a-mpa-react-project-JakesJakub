@@ -6,11 +6,18 @@ const MenuPage: React.FC = () => {
   return (
     <div className="menu-page">
       <div className={styles['menu-page']}>
-      <Link className={styles['start']} to="/board">
-        <div className={styles['start-text']}>
-          Play Game
+        <div className={styles['container']}>
+          <Link className={styles['start']} to="/board">
+          <div className={styles['start-text']}>
+            Play Game
+          </div>
+        </Link>
+        <Link className={styles['start']} to="/tutorial">
+          <div className={styles['start-text']}>
+            Tutorial
+          </div>
+        </Link>
         </div>
-      </Link>
       </div>
     </div>
   );
